@@ -1,0 +1,51 @@
+﻿@page "/fetchdata"
+@using BlazorAppTestWasm.Shared
+@inject HttpClient Http
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    // 초기에 페이지를 가동할 때 비동기 함수를 호출하는 것 -> 페이지가 렌더링되기 전에 수행한다.
+    // 렌더링 된 이후에는 forecasts가 null이 아니니까 위 else 블록의 코드가 실행된다.
+    protected override async Task OnInitializedAsync()
+    {
+        // 가져온 데이터를 WeatherForecast[] 데이터 모델로 캐스팅을 하겠다.
+        // 파라미터 WeatherForecast는 서버쪽의 컨트롤러 이름
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+    }
+}
