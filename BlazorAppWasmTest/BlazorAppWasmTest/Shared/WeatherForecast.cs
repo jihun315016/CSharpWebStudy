@@ -1,4 +1,4 @@
-namespace BlazorAppTestWasm.Shared
+namespace BlazorAppWasmTest.Shared
 {
     public class WeatherForecast
     {

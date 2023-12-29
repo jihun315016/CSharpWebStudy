@@ -1,4 +1,4 @@
-using BlazorAppTestWasm.Client;
+using BlazorAppWasmTest.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

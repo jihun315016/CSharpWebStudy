@@ -1,0 +1,42 @@
+﻿@page "/TestPage"
+
+@using BlazorAppWasmTest.Shared;
+
+@inject HttpClient Http
+
+<h3>Name</h3>
+<input type="text" @bind="inputName" />
+<!-- @bind : 코드블록에 선언된 변수 중 누구를 바인딩할거냐 -->
+
+<h3>Age</h3>
+<input type="text" @bind="inputAge" />
+
+<button class="btn btn-primary" @onclick="InsertNewData">Insert</button>
+
+@code {
+    private string? inputName;
+    private string? inputAge;
+
+    // async 비동기 함수로 하는 이유는 버튼을 클릭하면 함수가 호출될 것
+    // 근데 호출을 할 때 사용자에게 입력받은 데이터를 서버쪽으로 보낼 것이다.
+    // 그래서 서버쪽에서 데이터베이스에 저장하는 그런식으로 만들 것.
+    // 말을 하다가 말았다.
+
+    // 컨트롤러 : get, post같은 api 합수들를 구현할 수 있는 클래스
+    private async Task InsertNewData()
+    {
+        Employee employee = new Employee()
+            {
+                Name = this.inputName,
+                Age = Convert.ToInt32(this.inputAge)
+            };
+
+        // <Employee> : 넘길 객체 타입
+        var response = await Http.PostAsJsonAsync<Employee>("api/Employee/insert", employee);
+
+        if (response.IsSuccessStatusCode)
+        {
+
+        }
+    }
+}

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using BlazorAppWasmTest.Shared;
 
-namespace BlazorAppTestWasm.Server.Models;
+namespace BlazorAppWasmTest.Server.Models;
 
 public partial class PostgresContext : DbContext
 {
@@ -27,17 +28,12 @@ public partial class PostgresContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Employee");
+            entity.HasKey(e => e.Id).HasName("Employee_pkey");
+
+            entity.ToTable("Employee");
 
             entity.Property(e => e.Age).HasColumnName("age");
-            entity.Property(e => e.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id");
-            entity.Property(e => e.Name)
-                .HasColumnType("character varying")
-                .HasColumnName("name");
+            entity.Property(e => e.Name).HasColumnType("character varying");
         });
 
         OnModelCreatingPartial(modelBuilder);

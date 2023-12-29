@@ -1,10 +1,8 @@
-using BlazorAppTestWasm.Shared;
+using BlazorAppWasmTest.Shared;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlazorAppTestWasm.Server.Controllers
+namespace BlazorAppWasmTest.Server.Controllers
 {
-    // [Route("[controller]")]
-    // 컨트롤러 앞에 있는 이름(WeatherForecast)으로 지정을 하면 자동으로 이 컨트롤러로 라우팅을 시키겠다는 것
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlazorAppTestWasm.Server.Models;
+namespace BlazorAppWasmTest.Shared;
 
 public partial class Employee
 {
