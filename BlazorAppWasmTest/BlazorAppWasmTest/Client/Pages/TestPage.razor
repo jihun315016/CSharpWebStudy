@@ -4,18 +4,85 @@
 
 @inject HttpClient Http
 
-<h3>Name</h3>
-<input type="text" @bind="inputName" />
-<!-- @bind : 코드블록에 선언된 변수 중 누구를 바인딩할거냐 -->
+<table>
+    <tr>
+        <td>
+            <h1>Insert</h1>
+            <h3>Name</h3>
+            <input type="text" @bind="inputName" />
+            <!-- @bind : 코드블록에 선언된 변수 중 누구를 바인딩할거냐 -->
+            <h3>Age</h3>
+            <input type="text" @bind="inputAge" />
 
-<h3>Age</h3>
-<input type="text" @bind="inputAge" />
+            <button class="btn btn-primary" @onclick="InsertNewData">Insert</button>
+        </td>
+        <td>
+            <h1>Update</h1>
+            <h3>Id</h3>
+            <input type="text" @bind="targetId" />
+            <h3>Name</h3>
+            <input type="text" @bind="inputUpdateName" />
+            <h3>Age</h3>
+            <input type="text" @bind="inputUpdateAge" />
 
-<button class="btn btn-primary" @onclick="InsertNewData">Insert</button>
+            <!-- 이벤트 함수에 파라미터를 넘기는 방법은 람다식으로 하는 것 -->
+            <button class="btn btn-primary" @onclick="(async () => await UpdateData(int.Parse(targetId)))">Update</button>
+        </td>
+    </tr>
+</table>
+
+@if (employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in employees)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.Name</td>
+                    <td>@employee.Age</td>
+                    <td>
+                        <input type="submit" value="Delete" @onclick="(async () => await DeleteData(employee.Id))" class="btn btn-danger" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
     private string? inputName;
     private string? inputAge;
+    private string? targetId;
+    private string? inputUpdateName;
+    private string? inputUpdateAge;
+    private List<Employee>? employees;
+
+    /// <summary>
+    /// 페이지가 렌더링되기 전 실행되는 함수
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        this.employees  = await Http.GetFromJsonAsync<List<Employee>>("api/Employee/read");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // CRUD를 하고 난 다음에 가장 최신의 DB 테이블의 데이터들을 한 번 더 읽어 오는 것
+        this.employees = await Http.GetFromJsonAsync<List<Employee>>("api/Employee/read");
+    }
 
     // async 비동기 함수로 하는 이유는 버튼을 클릭하면 함수가 호출될 것
     // 근데 호출을 할 때 사용자에게 입력받은 데이터를 서버쪽으로 보낼 것이다.
@@ -26,17 +93,44 @@
     private async Task InsertNewData()
     {
         Employee employee = new Employee()
-            {
-                Name = this.inputName,
-                Age = Convert.ToInt32(this.inputAge)
-            };
+        {
+            Name = this.inputName,
+            Age = Convert.ToInt32(this.inputAge)
+        };
 
         // <Employee> : 넘길 객체 타입
         var response = await Http.PostAsJsonAsync<Employee>("api/Employee/insert", employee);
 
         if (response.IsSuccessStatusCode)
         {
+            await this.OnAfterRenderAsync(false);
+        }
+    }
 
+    private async Task UpdateData(int id)
+    {
+        Employee employee = new Employee()
+            {
+            Id = id,
+            Name = this.inputUpdateName,
+            Age = Convert.ToInt32(this.inputUpdateAge)
+        };
+
+        var response = await Http.PutAsJsonAsync<Employee>("api/Employee/update", employee);
+
+        if (response.IsSuccessStatusCode)
+        {
+            await this.OnAfterRenderAsync(false);
+        }
+    }
+
+    private async Task DeleteData(int id)
+    {
+        var response = await Http.DeleteAsync("api/Employee/delete/" + id);
+
+        if (response.IsSuccessStatusCode)
+        {
+            await this.OnAfterRenderAsync(false);
         }
     }
 }
