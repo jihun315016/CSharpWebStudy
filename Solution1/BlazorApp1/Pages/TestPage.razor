@@ -1,0 +1,54 @@
+﻿@page "/TestPage"
+
+@using ClassLibrary1
+@inject IJSRuntime JsRuntime
+
+<h3>TestPage</h3>
+
+<div>
+    <span>Name</span>
+    <input type="text" @bind="inputName" />
+</div>
+
+<div>
+    <span>Hobby</span>
+    <input type="text" @bind="inputHobby" />
+</div>
+
+<button @onclick="async () => await GetBindData(inputName, inputHobby)">Bind Check Button</button>
+
+@code {
+    private string? inputName;
+    private string? inputHobby;
+
+    protected async Task GetBindData(string name, string hobby)
+    {
+        Person person = new Person()
+        {
+            Name = name,
+            Hobby = hobby
+        };
+
+        try
+        {
+            HttpClient client = new HttpClient();
+
+            var response = await client.PostAsJsonAsync<Person>("https://localhost:7075/api/Person/post", person);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // 성공
+                await JsRuntime.InvokeVoidAsync("alert", "성공");
+            }
+            else
+            {
+                // 실패
+                await JsRuntime.InvokeVoidAsync("alert", "실패");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Hello");
+        }
+    }
+}
