@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//
+// CORS 미들웨서 추가
 app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();

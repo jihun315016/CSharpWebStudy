@@ -29,26 +29,20 @@
             Hobby = hobby
         };
 
-        try
-        {
-            HttpClient client = new HttpClient();
+        // 예외 처리 부분 생략
+        HttpClient client = new HttpClient();
 
-            var response = await client.PostAsJsonAsync<Person>("https://localhost:7075/api/Person/post", person);
+        var response = await client.PostAsJsonAsync<Person>("https://localhost:7075/api/Person/post", person);
 
-            if (response.IsSuccessStatusCode)
-            {
-                // 성공
-                await JsRuntime.InvokeVoidAsync("alert", "성공");
-            }
-            else
-            {
-                // 실패
-                await JsRuntime.InvokeVoidAsync("alert", "실패");
-            }
-        }
-        catch (Exception ex)
+        if (response.IsSuccessStatusCode)
         {
-            Console.WriteLine("Hello");
+            // 성공
+            await JsRuntime.InvokeVoidAsync("alert", "성공");
         }
+        else
+        {
+            // 실패
+            await JsRuntime.InvokeVoidAsync("alert", "실패");
+        }        
     }
 }
