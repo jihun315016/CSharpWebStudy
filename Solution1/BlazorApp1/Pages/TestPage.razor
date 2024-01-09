@@ -12,27 +12,30 @@
 
 <div>
     <span>Hobby</span>
-    <input type="text" @bind="inputHobby" />
+    <input type="text" @bind="inputPrice" />
 </div>
 
-<button @onclick="async () => await GetBindData(inputName, inputHobby)">Send Button</button>
+<button @onclick="async () => await GetBindData(inputName, Convert.ToInt32(inputPrice))">Send Button</button>
+
+<button @onclick="GetRequest">GetRequest Button</button>
+
 
 @code {
     private string? inputName;
-    private string? inputHobby;
+    private string? inputPrice;
 
-    protected async Task GetBindData(string name, string hobby)
+    protected async Task GetBindData(string name, int price)
     {
-        Person person = new Person()
+        Coffee person = new Coffee()
         {
             Name = name,
-            Hobby = hobby
+            Price = price
         };
 
         // 예외 처리 부분 생략
         HttpClient client = new HttpClient();
 
-        var response = await client.PostAsJsonAsync<Person>("https://localhost:7075/api/Person/post", person);
+        var response = await client.PostAsJsonAsync<Coffee>("https://localhost:7075/api/Coffee/post", person);
 
         if (response.IsSuccessStatusCode)
         {
@@ -43,6 +46,38 @@
         {
             // 실패
             await JsRuntime.InvokeVoidAsync("alert", "실패");
-        }        
+        }
+    }
+
+    protected async Task GetRequest()
+    {
+        HttpClient client = new HttpClient();
+
+        var response = await client.GetAsync("https://localhost:7075/api/Coffee/get?id=3");
+
+        if (response.IsSuccessStatusCode)
+        {
+            // 대소문자 구분 안 함 옵션
+            // [아래 옵션 사용에 대한 관련 자료]
+            // System.Text.Json 라이브러리의 기본 동작 방식입니다.
+            // 이 라이브러리는 기본적으로 JSON 속성 이름과 C# 클래스의 속성 이름을 대소문자를 구분하여 매칭합니다. 
+            // 이는 JSON 표준에 따른 동작이며, 대부분의 JSON 라이브러리도 비슷하게 동작합니다.
+            // 하지만 C#의 관례는 클래스의 속성 이름을 PascalCase로 작성하는 반면, JSON의 관례는 속성 이름을 camelCase로 작성하는 것입니다. 
+            // 때문에 이러한 관례 차이로 인해 문제가 발생할 수 있습니다.
+            // 따라서 System.Text.Json 라이브러리는 이를 해결하기 위해 PropertyNameCaseInsensitive 옵션을 제공하고 있습니다.
+            // 이 옵션을 true로 설정하면 대소문자를 구분하지 않고 속성 이름을 매칭할 수 있게 됩니다.
+            var options = new System.Text.Json.JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+
+            var content = await response.Content.ReadAsStringAsync();
+            var coffee = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<Coffee>>(content, options);
+        }
+        else
+        {
+            // 실패
+            await JsRuntime.InvokeVoidAsync("alert", "실패");
+        }
     }
 }

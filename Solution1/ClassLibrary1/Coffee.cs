@@ -5,10 +5,11 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1;
-
-public class Person
+namespace ClassLibrary1
 {
-    public string Name { get; set; }
-    public string Hobby { get; set; }
+    public class Coffee
+    {
+        public string Name { get; set; }
+        public int Price { get; set; }
+    }
 }
