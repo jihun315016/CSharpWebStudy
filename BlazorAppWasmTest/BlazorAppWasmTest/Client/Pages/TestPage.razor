@@ -56,7 +56,7 @@ else
                         <input type="submit" value="Delete" @onclick="(async () => await DeleteData(employee.Id))" class="btn btn-danger" />
                     </td>
                 </tr>
-            }
+            }d
         </tbody>
     </table>
 }
@@ -75,13 +75,17 @@ else
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
-        this.employees  = await Http.GetFromJsonAsync<List<Employee>>("api/Employee/read");
+        this.employees = await Http.GetFromJsonAsync<List<Employee>>("api/Employee/read");
     }
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // CRUD를 하고 난 다음에 가장 최신의 DB 테이블의 데이터들을 한 번 더 읽어 오는 것
-        this.employees = await Http.GetFromJsonAsync<List<Employee>>("api/Employee/read");
+        if (!firstRender) 
+        {
+            // CRUD를 하고 난 다음에 가장 최신의 DB 테이블의 데이터들을 한 번 더 읽어 오는 것
+            this.employees = await Http.GetFromJsonAsync<List<Employee>>("api/Employee/read");            
+        }
     }
 
     // async 비동기 함수로 하는 이유는 버튼을 클릭하면 함수가 호출될 것
