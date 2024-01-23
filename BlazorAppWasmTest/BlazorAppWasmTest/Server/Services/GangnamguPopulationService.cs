@@ -30,11 +30,11 @@ namespace BlazorAppWasmTest.Server.Services
             }
         }
 
-        public void DeleteGangnamguPopulation(string agency)
+        public void DeleteGangnamguPopulation(int id)
         {
             try
             {
-                GangnamguPopulation? gangnamguPopulation = _dbContext.GangnamguPopulations.Find(agency);
+                GangnamguPopulation? gangnamguPopulation = _dbContext.GangnamguPopulations.Find(id);
                 if (gangnamguPopulation != null) 
                 {
                     _dbContext.GangnamguPopulations.Remove(gangnamguPopulation);
@@ -65,11 +65,11 @@ namespace BlazorAppWasmTest.Server.Services
             }
         }
 
-        public GangnamguPopulation GetGangnamguPopulation(string agency)
+        public GangnamguPopulation GetGangnamguPopulation(int id)
         {
             try
             {
-                GangnamguPopulation? gangnamguPopulation = _dbContext.GangnamguPopulations.Find(agency);
+                GangnamguPopulation? gangnamguPopulation = _dbContext.GangnamguPopulations.Find(id);
                 if (gangnamguPopulation != null) 
                 {
                     return gangnamguPopulation;
