@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <h1>TinyMCE Quick Start Guide</h1>
+    <textarea id="mytextarea">Hello, World!</textarea>
+</div>
+<div>
+    <p>Hello World</p>
+    <textarea>Hello, World!</textarea>
+</div>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css">
+<script>
+    tinymce.init({
+        selector: '#mytextarea',  // change this value according to your HTML
+        plugins: 'codesample',
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | codesample',
+        statusbar: false
+    });
+</script>
+
+
+
+
