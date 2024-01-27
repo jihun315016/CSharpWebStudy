@@ -26,5 +26,10 @@ namespace Sample8_1.Web.Controllers
 
             return View(boards);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
