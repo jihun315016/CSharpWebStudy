@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Sample8_1.Web.Models
+namespace Sample8_01.Shared
 {
     public class Board
     {
         public int Id { get; set; }
-
         public string Title { get; set; }
-
         public string Author { get; set; }
-
         public DateTime CreateDate { get; set; }
-
-        public string Descript { get; set; }
+        public string Content { get; set; }
     }
 }
