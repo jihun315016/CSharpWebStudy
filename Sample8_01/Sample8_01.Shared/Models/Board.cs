@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sample8_01.Shared
+namespace Sample8_01.Shared.Models
 {
     public class Board
     {
