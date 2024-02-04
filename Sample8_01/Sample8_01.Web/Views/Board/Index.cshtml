@@ -1,0 +1,35 @@
+﻿@using Sample8_01.Shared.Models
+@model BoardsVM
+
+@{
+    ViewData["Title"] = "Hello Board Page";
+}
+
+<a href="#" class="btn btn-light btn-icon-split">
+    <span class="icon text-gray-600">
+        <i class="fas fa-arrow-right"></i>
+    </span>
+    <span class="text">Split Button Light</span>
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.boards)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Author</td>
+                <td>@item.CreateDate</td>
+            </tr>
+        }
+    </tbody>
+</table>

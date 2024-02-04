@@ -15,28 +15,6 @@
     <!-- Bootstrap END -->
 </head>
 <body>
-    @* <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sample8_01.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header> *@
-
     <!-- Bootstrap START -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
@@ -69,26 +47,42 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
 
+                        <!--
+                            `asp-area`는 ASP.NET Core MVC에서 사용하는 태그 헬퍼입니다. 
+                            이것은 특정 영역을 지정하는데 사용됩니다. 
+                            영역(Area)은 ASP.NET MVC에서 큰 웹 애플리케이션을 논리적으로 그룹화하는 방법입니다.
+
+                            예를 들어, 웹사이트가 "관리자" 영역과 "사용자" 영역을 가지고 있다고 가정해봅시다. 
+                            관리자 영역에서는 사이트 관리에 필요한 기능들이 제공되고, 사용자 영역에서는 일반 사용자들에게 제공되는 기능들이 구현되어 있을 것입니다. 
+                            이런 식으로 웹사이트를 논리적인 단위로 분리하여 관리하는 것이 영역입니다.
+
+                            `asp-area=""`에서 빈 문자열은 기본 영역을 의미합니다. 
+                            즉, 특정 영역을 지정하지 않고 기본 영역의 컨트롤러와 액션 메서드를 사용하겠다는 의미입니다.
+
+                            따라서, 코드에서 `asp-controller="Home"`과 `asp-action="Index"`는 기본 영역의 "Home" 컨트롤러의 "Index" 액션 메서드를 가리킵니다. 
+                            만약 `asp-area="Admin"`이라고 했다면, "Admin" 영역의 "Home" 컨트롤러의 "Index" 액션 메서드를 가리키게 될 것입니다.
+                        -->
+
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                Home
                             </a>
 
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Layouts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Board" asp-action="Index">Board</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
                                 </nav>
                             </div>
-                            
+
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -126,18 +120,7 @@
             </div>
         </div>
     <!-- Bootstrap END -->
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Sample8_01.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-
+    
     <!-- Bootstrap START -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/bootstrap-js/scripts.js"></script>
