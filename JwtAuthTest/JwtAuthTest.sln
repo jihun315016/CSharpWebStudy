@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtAuthTest", "JwtAuthTest\JwtAuthTest.csproj", "{057CFEAA-CBCD-4345-8ACF-023C5C870A87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuthTest", "JwtAuthTest\JwtAuthTest.csproj", "{057CFEAA-CBCD-4345-8ACF-023C5C870A87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{B16913D9-43FC-4FEB-81C3-D005EBDD1D2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLib", "SharedLib\SharedLib.csproj", "{7F1F53BB-629E-4AC4-B937-5ACE54D1FECB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{057CFEAA-CBCD-4345-8ACF-023C5C870A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{057CFEAA-CBCD-4345-8ACF-023C5C870A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{057CFEAA-CBCD-4345-8ACF-023C5C870A87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B16913D9-43FC-4FEB-81C3-D005EBDD1D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16913D9-43FC-4FEB-81C3-D005EBDD1D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16913D9-43FC-4FEB-81C3-D005EBDD1D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16913D9-43FC-4FEB-81C3-D005EBDD1D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F1F53BB-629E-4AC4-B937-5ACE54D1FECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F1F53BB-629E-4AC4-B937-5ACE54D1FECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F1F53BB-629E-4AC4-B937-5ACE54D1FECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F1F53BB-629E-4AC4-B937-5ACE54D1FECB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

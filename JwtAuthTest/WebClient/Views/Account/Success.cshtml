@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Success</h1>
+<h2>Good</h2>
+
+<script>
+    sessionStorage.setItem('jwtToken', '@Model');
+
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem('jwtToken'));
+        }
+    });
+
+    // 개발자 도구 - Application - Local storage 또는 Session storage에서 토큰 확인 가능
+</script>
