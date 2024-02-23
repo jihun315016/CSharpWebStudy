@@ -6,15 +6,26 @@
 
 <h1>Success</h1>
 <h2>Good</h2>
+<button id="btn">Hello World</button>
 
+<script src="~/js/cust/auth.js"></script>
 <script>
-    sessionStorage.setItem('jwtToken', '@Model');
+    document.getElementById("btn").addEventListener("click", function () {
+        var token = sessionStorage.getItem("token");
 
-    $.ajaxSetup({
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem('jwtToken'));
-        }
+        axios({
+            method: get,
+            url: "https://localhost:7203/Test/Index",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (response) {
+                document.getElementById('targetElementId').innerHTML = response.data;
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     });
-
-    // 개발자 도구 - Application - Local storage 또는 Session storage에서 토큰 확인 가능
 </script>
